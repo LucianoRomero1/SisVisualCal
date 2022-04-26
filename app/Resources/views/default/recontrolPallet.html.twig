@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - ReControl de Pallets
+{% endblock %}
+
+{% block javascript %}
+    {{parent()}}
+    <script src="{{ asset('js/jquery-ui.min.js')}}"></script>
+    <script src="{{ asset('js/recontrolPallet_js.js') }}"></script>
+{% endblock %}
+
+
+{% block body %}
+    <div id="loading" class="loading"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% for type, flashMessages in app.session.flashbag.all() %} 
+            {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+                {{ flashMessage|raw }}
+            </div>
+            {% endfor %} 
+            {% endfor %} 
+        </div>
+    </div>
+    
+    <div id="rutaRecontrolPalletPost" ruta="{{ path('recontrolPalletPost')  }}"></div>
+    <div id="msgErrores"></div>
+
+    <form name="recontrol_pallet" method="post" class="ajaxFormBusqueda" autocomplete="off">
+
+
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="far fa-file"></i>&nbsp;&nbsp;<b>Recontrol</b>
+        </div>
+        <div class="card-body" style="padding-bottom:0px;padding-top:16px;">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" id="lectura" name="lectura" class="form-control m-input" placeholder="Lectura"  autocomplete="off">
+                </div>
+                <div class="col-md-4" >
+                    <input type="hidden" id="auxParaEnter" name="auxParaEnter"  >
+                </div>
+                <div class="col-md-4">
+                    <button id="btnSubmit" name="btnSubmit" value="save" class="btn btn-primary"> 
+                        <i class="far fa-check-circle"></i> Recontrolar Pallet
+                    </button>
+                    <button type="cancel" onclick="location.reload();return false;" class="btn btn-secondary"> 
+                        <i class="fas fa-undo-alt"></i> Cancelar
+                    </button>
+                </div>                
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="newRow"></div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    </form>
+
+    <div id="modalResultados" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Resultados</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="contenidoModalResultados">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

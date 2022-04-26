@@ -1,0 +1,8 @@
+//Politicas a configurar en FIREFOX
+//Es para poder visualizar archivos locales.
+
+about:config
+
+capability.policy.policynames ---> filelinks
+capability.policy.filelinks.checkloaduri.enabled ---> allAccess
+capability.policy.filelinks.sites ---> http://localhost:8090 192.168.0.232 10.1.1.105

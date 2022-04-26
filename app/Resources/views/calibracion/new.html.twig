@@ -1,0 +1,101 @@
+<div id="form_body">  
+<div class="form_error"></div>
+    <form method="POST" class="ajaxForm" autocomplete='off' action="{{path('new_calibracion_post', {'id': calibracion.id})}}" >
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.fecha) }}
+        </div>
+        <div style="display:none;">
+            {{ form_row(form.gage, { 'attr' : { 'readonly' : true }}) }}
+        </div>
+        <div class="col-md-3">
+            <div class="form-group"><label class="control-label required" for="gage_id">Instrumento</label><input type="text" id="gage_id" name="gage_id" readonly required="required" class="form-control" value="{{calibracion.gage.id}}"></div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group"><label class="control-label required" for="gage_descripcion">Instrumento Descripción</label><input type="text" id="gage_descripcion" name="gage_descripcion" readonly required="required" class="form-control" value="{{calibracion.gage.descripcion}}"></div>
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.realizadaPor) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.pasa) }}
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label required" for="calFrecuencia">Frecuencia</label>
+                <input type="text" value="{{ calibracion.gage.calFrecuencia }}" id="calFrecuencia" required="required" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label required" for="calFrecuenciaUM">Medida</label>
+                {% if (calibracion.gage.calFrecuenciaUM != null) %}
+                    <input type="text" value="{{ calibracion.gage.calFrecuenciaUM.descripcion }}" id="calFrecuenciaUM" required="required" class="form-control" readonly>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.resultado) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.temperatura) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.humedad) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.calibracionTipo) }}
+        </div>
+    </div>
+
+    <hr/>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                {{ form_label(form.almacen) }}
+                {{ form_widget(form.almacen) }}
+                <small class="form-text text-muted">
+                Valor Actual: {% if calibracion.gage.almacen %}{{ calibracion.gage.almacen.descripcion}}{% endif %}
+                </small>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label required" for="calibracion_ubicacion">Ubicación</label>
+                {{ form_widget(form.ubicacion, {  'required' : true }   ) }}
+                <small class="form-text text-muted">
+                Valor Actual: {% if calibracion.gage.ubicacion %}{{ calibracion.gage.ubicacion.descripcion}}{% endif %}
+                </small>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label required" for="calibracion_gageTipo">Color</label>
+                {{ form_widget(form.gageTipo) }}
+                <small class="form-text text-muted">
+                Valor Actual: {% if calibracion.gage.tipo %}{{ calibracion.gage.tipo.descripcion}}{% endif %}
+                </small>
+            </div>
+        </div>
+    </div>
+
+    {{form_rest(form)}}
+
+    <div class="modal-footer">
+        <button type="submit" id ="ajaxFormSubmitButton" class="btn btn-danger" >Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    </div>
+
+    </form>
+</div>
+
+<script>
+$( document ).ready(function() {
+    $('#calibracion_temperatura').focus();
+});
+</script>

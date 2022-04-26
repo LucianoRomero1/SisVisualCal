@@ -1,0 +1,13 @@
+basso_visual_cal:
+    resource: "@BassoVisualCalBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+basso_guard:
+    resource: "@BassoGuardBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

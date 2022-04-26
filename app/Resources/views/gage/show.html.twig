@@ -1,0 +1,337 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - Instrumento
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-3">
+            <p><strong>Id</strong></p>
+            <p>
+                {{ gage.id }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Estado</strong></p>
+            <p>
+                {% if gage.estado %}{{ gage.estado.descripcion }}{% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+           <p><strong>Patron Ref.</strong></p>
+        <p>
+            {% if gage.patronRef %}Yes{% else %}No{% endif %}
+        </p>
+        </div>
+        <div class="col-md-3">
+            {{ gage.nroCertificado }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <p><strong>Nº Serie</strong></p>
+            <p>
+                {{ gage.nroSerie }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Nº Cuenta</strong></p>
+            <p>
+                {{ gage.nroCuenta }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Nº Modelo</strong></p>
+        <p>
+            {{ gage.nroModelo }}
+        </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong>Descripción</strong></p>
+        <p>
+            {{ gage.descripcion }}
+        </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <p><strong>Tipo</strong></p>
+            <p>
+                {% if gage.tipo %}{{ gage.tipo.descripcion }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Tipo</strong></p>
+            <p>
+                {% if gage.gageUOM %}{{ gage.gageUOM.descripcion }}{% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <p><strong>Nº plano</strong></p>
+            <p>
+                {{ gage.nroPlano }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Fecha Plano</strong></p>
+            <p>
+                {% if gage.fechaPlano %}{{ gage.fechaPlano|date('Y-m-d H:i:s') }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Nivel Cambio</strong></p>
+            <p>
+                {{ gage.nivelCambio }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Fecha Cambio</strong></p>
+            <p>
+                {% if gage.fechaCambio %}{{ gage.fechaCambio|date('Y-m-d H:i:s') }}{% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong>Notas</strong></p>
+            <p>
+                {{ gage.notas }}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <p><strong>Almacén</strong></p>
+            <p>
+                {% if gage.almacen %}{{ gage.almacen.descripcion }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p><strong>Ubicación</strong></p>
+            <p>
+                {% if gage.ubicacion %}{{ gage.ubicacion.descripcion }}{% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <p><strong>Fecha Servicio</strong></p>
+            <p>
+                {% if gage.fechaServicio %}{{ gage.fechaServicio|date('Y-m-d H:i:s') }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Fecha Retiro</strong></p>
+            <p>
+                {% if gage.fechaRetiro %}{{ gage.fechaRetiro|date('Y-m-d H:i:s') }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p><strong>Proveedor</strong></p>
+            <p>
+                {{ gage.proveedor }}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Costo</strong></p>
+            <p>
+                {{ gage.costo }}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Fecha Compra</strong></p>
+            <p>
+                {% if gage.fechaCompra %}{{ gage.fechaCompra|date('Y-m-d H:i:s') }}{% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong>Otra Info.</strong></p>
+            <p>
+                {{ gage.otraInfo }}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <p><strong>Fabricante</strong></p>
+            <p>
+                {% if gage.fabricante %}{{ gage.fabricante.descripcion }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p><strong>Dueño</strong></p>
+            <p>
+                {% if gage.owner %}{{ gage.owner.descripcion }}{% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <p><strong>Resolución</strong></p>
+            <p>
+                {{ gage.resolucion }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Tolerancia +</strong></p>
+            <p>
+                {{ gage.toleranciaPos }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Tolerancia -</strong></p>
+            <p>
+                {{ gage.toleranciaNeg }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Incertidumbre</strong></p>
+            <p>
+                {{ gage.incertidumbre }}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Usuario Modifica</strong></p>
+            <p>
+                {{ gage.usuarioM }}
+            </p>
+
+        </div>
+        <div class="col-md-6">
+            <p><strong>Fecha Modifica</strong></p>
+            <p>
+                {% if gage.fechaM %}{{ gage.fechaM|date('Y-m-d H:i:s') }}{% endif %}
+            </p>
+
+        </div>
+    </div>
+    
+    <h4>CALIBRACION</h4>
+    <hr/>
+    <div class="row">
+        <div class="col-md-3">
+            <p><strong>Tiempos iniciales usados</strong></p>
+            <p>
+                {{ gage.calUso }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Calibrador</strong></p>
+            <p>
+                {{ gage.calibrador }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Ult Calibrador</strong></p>
+            <p>
+                {{ gage.ultCalibrador }}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <p><strong>Frecuencia</strong></p>
+            <p>
+                {{ gage.calFrecuencia }}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Medida</strong></p>
+            <p>
+                {% if gage.calFrecuenciaUM %}{{ gage.calFrecuenciaUM.descripcion }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Horas de Calibración</strong></p>
+            <p>
+                {{ gage.calHoras }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Ultima fecha de Cal.</strong></p>
+            <p>
+                {% if gage.calUltimaFecha %}{{ gage.calUltimaFecha|date('Y-m-d H:i:s') }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Próxima fecha de Cal.</strong></p>
+            <p>
+                {% if gage.calProximaFecha %}{{ gage.calProximaFecha|date('Y-m-d H:i:s') }}{% endif %}
+            </p>
+        </div>
+    </div>
+
+    <h4>RyR</h4>
+    <hr/>
+
+    <div class="row">
+        <div class="col-md-2">
+            <p><strong>Frecuencia</strong></p>
+            <p>
+                {{ gage.rrFrecuencia }}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Medida</strong></p>
+            <p>
+                {% if gage.rrFrecuenciaUM %}{{ gage.rrFrecuenciaUM.descripcion }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Ultima fecha de RyR</strong></p>
+            <p>
+                {% if gage.rrUltimaFecha %}{{ gage.rrUltimaFecha|date('Y-m-d H:i:s') }}{% endif %}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Ultimo Resultado de RyR</strong></p>
+            <p>
+                {{ gage.rrResultado }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Próxima fecha de RyR</strong></p>
+        <p>
+            {% if gage.rrProximaFecha %}{{ gage.rrProximaFecha|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+        </div>
+    </div>
+
+    
+    
+<hr/>
+
+
+<div class="form-group">
+    <a class="btn btn-secondary" href="{{ path('gage') }}">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+</div>
+
+
+{% endblock %}
+

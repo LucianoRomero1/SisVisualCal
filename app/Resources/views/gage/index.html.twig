@@ -1,0 +1,263 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - Instrumentos 
+{% endblock %}
+
+{% block body %}
+
+
+<div class="row">       
+
+<!-- FILTERING -->
+<div class="col-md-12">
+    <div  id="filters" class="collapse">
+
+        <form class="card pl-3 pr-3 pt-2 bg-light mb-3" action="{{ path('gage') }}" method="get" >
+            <div class="row">
+                    <div class="col-md-3">{{ form_row(filterForm.id) }}</div>
+                    <div class="col-md-4">{{ form_row(filterForm.nroSerie) }}</div>
+                    <div class="col-md-5">{{ form_row(filterForm.descripcion) }}</div>
+                    <div class="col-md-3">{{ form_row(filterForm.tipo) }}</div>
+                    <div class="col-md-3">{{ form_row(filterForm.ubicacion) }}</div>
+                    <div class="col-md-3">{{ form_row(filterForm.estado) }}</div>
+                    {# INICIO Render manual date range#}
+                    <div id="calProximaFecha" class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="calProximaFecha_left_date">Próx.Calibración desde</label>
+                                    <input type="date" id="calProximaFecha_left_date" name="calProximaFecha[left_date]" class="form-control" value="{{ filterForm.calProximaFecha.children.left_date.vars.value}}" />
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="calProximaFecha_right_date">Próx.Calibración hasta</label>
+                                    <input type="date" id="calProximaFecha_right_date" name="calProximaFecha[right_date]" class="form-control" value="{{ filterForm.calProximaFecha.children.right_date.vars.value}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    {% do filterForm.calProximaFecha.setRendered %}
+                    {# FIN Render manual date range#}
+                    {# INICIO Render manual date range#}
+                    <div id="rrProximaFecha" class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="rrProximaFecha_left_date">Próx.RyR desde</label>
+                                    <input type="date" id="rrProximaFecha_left_date" name="rrProximaFecha[left_date]" class="form-control" value="{{ filterForm.rrProximaFecha.children.left_date.vars.value}}" />
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="rrProximaFecha_right_date">Próx.RyR hasta</label>
+                                    <input type="date" id="rrProximaFecha_right_date" name="rrProximaFecha[right_date]" class="form-control" value="{{ filterForm.rrProximaFecha.children.right_date.vars.value}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    {% do filterForm.rrProximaFecha.setRendered %}
+                    {# FIN Render manual date range#}
+                <div class="col-md-6">
+                    {{ form_rest(filterForm) }}
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-warning" name="filter_action" value="filter"><i class="fas fa-filter"></i> Filtrar</button>
+                        <button type="submit" class="btn btn-secondary" name="filter_action" value="reset"><i class="fas fa-minus"></i> Reset</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END FILTERING -->
+
+
+<div class="col-md-3 pull-left">
+        
+    <!-- PAGE SIZE -->
+    <div class="pagination form-inline ">
+        <select class = "form-control"  onchange="window.location = this.value" >
+            <option value='{{ path('gage', app.request.query.all|merge({'pcg_show': '10'})) }}' {% if app.request.get('pcg_show') == 10 %} selected {% endif %}>10</option>
+            <option value='{{ path('gage', app.request.query.all|merge({'pcg_show': '20'})) }}' {% if app.request.get('pcg_show') == 20 %} selected {% endif %}>20</option>
+            <option value='{{ path('gage', app.request.query.all|merge({'pcg_show': '50'})) }}' {% if app.request.get('pcg_show') == 50 %} selected {% endif %}>50</option>
+            <option value='{{ path('gage', app.request.query.all|merge({'pcg_show': '100'})) }}' {% if app.request.get('pcg_show') == 100 %} selected {% endif %}>100</option>
+            <option value='{{ path('gage', app.request.query.all|merge({'pcg_show': '500'})) }}' {% if app.request.get('pcg_show') == 500 %} selected {% endif %}>500</option>
+        </select>
+    </div>
+    <!-- END PAGE SIZE -->
+
+</div>
+
+<div class="col-md-6">
+
+
+</div>
+
+<div class="col-md-3">
+	<div class="float-right">
+    <a class="btn dropdown-toggle pull-right h3" data-toggle="collapse" data-target="#filters">
+        Filtros
+        <span class="caret"></span>
+    </a>
+    	<a class="btn btn-primary h3 pull-right" href="{{ path('gage_new') }}" style="margin-bottom:10px">
+		<i class="fas fa-plus"></i> Nuevo
+	</a>
+    	</div>	
+</div>
+
+
+
+
+
+
+
+    <div class="col-md-12">
+        {%- if form_errors(filterForm) %}
+        <div class="alert alert-block alert-error fade in form-errors">
+            {{ form_errors(filterForm) }}
+        </div>
+        {% endif %}
+    </div>
+
+</div> <!-- /#top -->
+
+
+<div class="row">
+    <div class="col-md-12">
+        {% for type, flashMessages in app.session.flashbag.all() %} 
+        {% for flashMessage in flashMessages %}
+        <div class="alert alert-{{ type }}">
+            {{ flashMessage|raw }}
+        </div>
+         {% endfor %} 
+         {% endfor %} 
+    </div>
+</div>
+    
+
+<!--<div class="row"> -->
+
+                <form method="POST" id="bulk_form" action="{{ path('gage_bulk_action') }} ">
+			<div class="card mb-4 mt-4">	
+            <table class="table table-striped table-hover table-sm" id="tabla" namefile="Gage">
+                <thead>
+                    <tr>
+                        
+
+                {% import "@PetkoparaCrudGenerator/macros/th_sortable.html.twig" as macros %}
+                            <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'gage','Id')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('nroSerie',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'gage','Nº Serie')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('descripcion',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'gage','Descripción')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('tipo',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'gage','Color')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('ubicacion',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'gage','Ubicación')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('estado',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'gage','Estado')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('calProximaFecha',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'gage','Próx. Calibración')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('rrProximaFecha',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'gage','Próx. RyR')}}</th>
+                       
+                        <th style="border:0px;" width = "130px" class="noExl">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for gage in gages %}
+                    <tr>
+                        
+                        <td>{{ gage.id }}</td>
+                        <td>{{ gage.nroSerie }}</td>
+                        <td>{{ gage.descripcion }}</td>
+                        <td>{%- if gage.tipo %}{{ gage.tipo.descripcion}}{% endif %}</td>
+                        <td>{%- if gage.ubicacion %}{{ gage.ubicacion.descripcion}}{% endif %}</td>
+                        <td>{%- if gage.estado %}{% include 'gage/_gageEstado.html.twig' with {'estado': gage.estado } %}{% endif %}</td>
+                        <td>{%- if gage.calProximaFecha %}{{ gage.calProximaFecha|date('Y-m-d') }}{% endif %}</td>
+                        <td>{%- if gage.rrProximaFecha %}{{ gage.rrProximaFecha|date('Y-m-d') }}{% endif %}</td>
+                        
+    
+                        <td class="actions  noExl"><!-- Extra small button group -->
+<div class="btn-group">
+    <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Opciones <span class="caret"></span>
+    </button>
+    <div class="dropdown-menu">
+        <a  class="dropdown-item" onclick="newCalibracion('{{ gage.id }}', '{{ path('new_calibracion_get', {'id': gage.id}) }}')" title="Nueva Calibración" href="#">
+            <b>Nueva Calibración</b>
+		</a>
+        <a class="dropdown-item" onclick="ultimasCalibraciones('{{ gage.id }}','{{ path('ultimasCalibraciones', {'id': gage.id}) }}')" href="#">
+            Ultimas Calibraciones
+        </a>
+        <div class="dropdown-divider"></div>
+        <a  class="dropdown-item" onclick="newRyR('{{ gage.id }}', '{{ path('new_ryr_get', {'id': gage.id}) }}')" title="Nuevo RyR" href="#">
+            <b>Nuevo RyR</b>
+		</a>
+        <a class="dropdown-item" onclick="ultimasRyR('{{ gage.id }}','{{ path('ultimasRyR', {'id': gage.id}) }}')" href="#">
+            Ultimos RyR
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" title='Vista Previa' href="{{ path('gage_show', { 'id': gage.id }) }}">
+            Vista Previa
+		</a>    
+        <a  class="dropdown-item" title='Editar'  href="{{ path('gage_edit', { 'id': gage.id }) }}">
+            Editar
+		</a>
+        <a  class="dropdown-item" onclick="return confirm('Seguro desea Eliminar!');" title="Delete" href="{{ path('gage_by_id_delete', { 'id': gage.id}) }}">
+            Eliminar
+		</a>
+    </div>
+</div>
+                        </td>
+
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+			</div> <!-- card -->
+        </form>
+
+
+        <!--</div>  /#list -->
+
+
+
+
+<div class="row">
+    <div class="col-md-4 pull-left">
+		<!-- /#Exportar Datos -->
+        <div class="dropdown dropup">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos
+            <span class="caret"></span></button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" onclick="exportToExcel()" href="#"><img src="{{ asset('images/icons/xls.png') }}" width="24"> Excel</a>
+            </div>
+        </div>
+        <!-- /#Exportar Datos -->
+    </div>
+    
+    <div class='col-md-3 text-center'>
+         <p>{{totalOfRecordsString}}</p>
+    </div>
+ 
+    <div class="col-md-5">
+		<div class="float-right">
+         {{ pagerHtml|raw }} 
+		</div>
+    </div>
+</div> <!-- /#bottom -->
+
+{% include 'gage/_modalNewCalibracion.html.twig' %}
+{% include 'gage/_modalUltimasCalibraciones.html.twig'%}
+{% include 'gage/_modalNewRyR.html.twig' %}
+{% include 'gage/_modalUltimasRyR.html.twig'%}
+
+{% endblock %}
+
+{% block javascript %}
+	{{ parent()}}
+    <script>
+        initAjaxForm();
+    </script>
+    <script type="text/javascript" src=" {{ asset('js/jquery.table2excel.js') }}"></script>
+{% endblock %} 

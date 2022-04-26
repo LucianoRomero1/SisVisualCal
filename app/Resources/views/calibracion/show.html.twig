@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - Calibración
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-6">
+        <p><strong>Id</strong></p>
+        <p>
+            {{ calibracion.id }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>Fecha</strong></p>
+        <p>
+            {% if calibracion.fecha %}{{ calibracion.fecha|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>Instrumento</strong></p>
+        <p>
+            {{ calibracion.gage.id }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>Realizada Por</strong></p>
+        <p>
+            {{ calibracion.realizadaPor }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>Pasa</strong></p>
+        <p>
+            {% if calibracion.pasa %}<i class="fas fa-check"></i>{% else %}No{% endif %}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>Temperatura</strong></p>
+        <p>
+            {{ calibracion.temperatura }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>Humedad</strong></p>
+        <p>
+            {{ calibracion.humedad }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>Almacén de Calibración</strong></p>
+        <p>
+            {% if calibracion.almacen %}{{ calibracion.almacen.descripcion}}{% endif %}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>Tipo control</strong></p>
+        <p>
+            {% if calibracion.calibracionTipo %}{{ calibracion.calibracionTipo.descripcion}}{% endif %}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>Resultado</strong></p>
+        <p>
+            {{ calibracion.resultado}}
+        </p>
+    </div>
+<hr/>
+
+
+<div class="form-group">
+    <a class="btn btn-secondary" href="{{ path('calibracion') }}">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+</div>
+
+
+{% endblock %}
+

@@ -1,0 +1,218 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - Nuevo Instrumento
+{% endblock %}
+
+{% block javascript %}
+    {{parent()}}
+    <script src="{{ asset('js/gage_js.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div id="loading" class="loading"></div>
+
+    <div class="row">
+    <div class="col-md-12">
+        {% for type, flashMessages in app.session.flashbag.all() %} 
+        {% for flashMessage in flashMessages %}
+        <div class="alert alert-{{ type }}">
+            {{ flashMessage|raw }}
+        </div>
+         {% endfor %} 
+         {% endfor %} 
+    </div>
+</div>
+
+    <div id="rutaObtenerDatosGage" ruta="{{ path('ObtenerDatosGage_get', { 'id': -1 })  }}"></div>
+    
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.id) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.estado) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.patronRef) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.nroCertificado) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.nroSerie) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.nroCuenta) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.nroModelo) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.descripcion) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.tipo) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.gageUOM) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.nroPlano) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.fechaPlano) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.nivelCambio) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.fechaCambio) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.notas) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.almacen) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.ubicacion) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_row(form.fechaServicio) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.fechaRetiro) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.proveedor) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.costo) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.fechaCompra) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.otraInfo) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.fabricante) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.owner) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.resolucion) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.toleranciaPos) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.toleranciaNeg) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.incertidumbre) }}
+        </div>
+    </div>
+    <h4>CALIBRACION</h4>
+    <hr/>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.calUso) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.calibrador) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.ultCalibrador) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_row(form.calFrecuencia) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.calFrecuenciaUM) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.calHoras) }}
+        </div>
+        {#
+        <div class="col-md-3">
+            {{ form_row(form.calUltimaFecha) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.calProximaFecha) }}
+        </div>
+        #}
+    </div>
+    <h4>RyR</h4>
+    <hr/>
+
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_row(form.rrFrecuencia) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.rrFrecuenciaUM) }}
+        </div>
+        {#<div class="col-md-2">
+            {{ form_row(form.rrUltimaFecha) }}
+        </div>#}
+        <div class="col-md-3">
+            {{ form_row(form.rrResultado) }}
+        </div>
+        {#<div class="col-md-3">
+            {{ form_row(form.rrProximaFecha) }}
+        </div>#}
+    </div>
+
+    {{ form_rest(form) }}
+    <p>
+        <button type="submit" name="submit" value="save" class="btn btn-primary"> 
+            Guardar <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+        </button>
+    </p>
+
+
+    {{ form_end(form) }}
+
+    <hr/>
+
+<div class="form-group">
+    <a class="btn btn-secondary" href="{{ path('gage') }}">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+</div>
+
+
+
+
+{% endblock %}
+

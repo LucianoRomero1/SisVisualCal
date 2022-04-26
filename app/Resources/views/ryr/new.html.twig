@@ -1,0 +1,518 @@
+<div id="form_body">  
+<div class="form_error"></div>
+    <form method="POST" class="ajaxForm" autocomplete='off' action="{{path('new_ryr_post', {'id': ryr.id})}}" >
+
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(form.fecha, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+        <div class="col-md-3">
+            <div class="form-group"><label class="control-label required" for="gage_id">Instrumento</label><input type="text" id="gage_id" name="gage_id" readonly required="required" class="form-control" value="{{ryr.gage.id}}"></div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group"><label class="control-label required" for="gage_descripcion">Instrumento Descripción</label><input type="text" id="gage_descripcion" name="gage_descripcion" readonly required="required" class="form-control" value="{{ryr.gage.descripcion}}"></div>
+        </div>
+        <div style="display:none;">
+            {{ form_row(form.gage, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+        <div class="col-md-2">
+            {# form_row(form.soloPdf, {'attr': {'class': 'form-control-sm'}}) #}
+            <div class="custom-control custom-switch">
+                <input type="checkbox" id="ry_r_soloPdf" name="ry_r[soloPdf]" class="custom-control-input" {% if ryr.soloPdf %} checked {% endif %}>
+                <label class="custom-control-label" for="ry_r_soloPdf">Solo Pdf?</label>
+            </div>
+            {% do form.soloPdf.setRendered %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_row(form.ryRTipo, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+        <div class="col-md-10">
+            {{ form_row(form.memo, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+    </div>
+
+    <div id="conPdf">
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.rutaArchivo, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+        {#<div class="col-md-12">
+            <input type=file id="jsRutaArchivo"  accept="application/pdf">
+        </div>#}
+    </div>
+    </div>
+
+    
+    <div id="sinPdf" class="d-none">
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_row(form.partNo, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.partName, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.caracteristic, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.usl, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.lsl, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <div class="row">
+        {#operador A#}
+        <div class="col-md-4" style="background-color: #e5e8e8 ;padding-top:15px;padding-bottom:15px;">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.nameA, {'attr': {'class': 'form-control-sm'}}) }}
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.a11, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.a21, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.a31, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.a12, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.a22, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.a32, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.a13, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.a23, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.a33, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.a14, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.a24, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.a34, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.a15, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.a25, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.a35, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.a16, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.a26, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.a36, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.a17, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.a27, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.a37, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.a18, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.a28, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.a38, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.a19, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.a29, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.a39, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.a110, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.a210, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.a310, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+        </div>
+        {#operador B#}
+        <div class="col-md-4" style="padding-top:15px;padding-bottom:15px;">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.nameB, {'attr': {'class': 'form-control-sm'}}) }}
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.b11, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.b21, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.b31, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.b12, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.b22, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.b32, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.b13, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.b23, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.b33, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.b14, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.b24, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.b34, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.b15, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.b25, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.b35, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.b16, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.b26, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.b36, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.b17, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.b27, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.b37, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.b18, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.b28, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.b38, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.b19, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.b29, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.b39, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.b110, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.b210, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.b310, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+        </div>
+        {#operador C#}
+        <div class="col-md-4" style="background-color: #e5e8e8 ;padding-top:15px;padding-bottom:15px;">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.nameC, {'attr': {'class': 'form-control-sm'}}) }}
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.c11, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.c21, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.c31, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.c12, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.c22, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.c32, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.c13, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.c23, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.c33, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.c14, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.c24, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.c34, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.c15, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.c25, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.c35, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.c16, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.c26, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.c36, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.c17, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.c27, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.c37, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.c18, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.c28, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.c38, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.c19, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.c29, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.c39, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.c110, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_widget(form.c210, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.c310, {'attr': {'class': 'form-control-sm'}}) }}
+            </div>
+            </div>
+            
+        </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+        <table style="width:100%">
+            <tr>
+                <th style="background-color: #e5e8e8 ;width:20%" class="text-center">Repetibilidad</th>
+                <th style="width:20%" class="text-center">Reproducibilidad</th>
+                <th style="background-color: #e5e8e8 ;width:20%" class="text-center">Variación de pieza</th>
+                <th style="width:20%" class="text-center">Variación Total</th>
+                <th style="background-color: #e5e8e8 ;width:20%" class="text-center">RyR Instrum.</th>
+            </tr>
+            <tr>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.ev.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.ev, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.av.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.av, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.pv.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.pv, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.rBar.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.rBar, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.rr.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.rr, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+            </tr>
+            <tr>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.evtolPorc.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.evtolPorc, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.avtolPorc.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.avtolPorc, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.pvtolPorc.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.pvtolPorc, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.uclR.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.uclR, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.rrtolPorc.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.rrtolPorc, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+            </tr>
+            <tr>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.evtvPorc.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.evtvPorc, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.avtvPorc.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.avtvPorc, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.pvtvPorc.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.pvtvPorc, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.tv.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.tv, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">{{form.rrtvPorc.vars.label}}:</label><div class="col-md-7"> {{ form_widget(form.rrtvPorc, {'attr': {'class': 'form-control-sm'}}) }}</div></div></td>
+            </tr>    
+        </table>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_row(form.ops, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>    
+        <div class="col-md-2">
+            {{ form_row(form.trials, {'attr': {'class': 'form-control-sm'}}) }}
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-warning" onclick="event.preventDefault();calcularRyR();"><i class="fas fa-calculator"></i> Calcular RyR</button> 
+        </div>
+    </div>
+    </div>{#fin div sinPdf#}
+
+    {{ form_rest(form) }}
+
+    <div class="modal-footer">
+        <button type="submit" id ="ajaxFormSubmitButton" class="btn btn-danger" >Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    </div>
+
+    </form>
+
+    <script type="text/javascript" src=" {{ asset('js/ryr_js.js') }}"></script>
+</div>
+

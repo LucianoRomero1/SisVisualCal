@@ -1,0 +1,216 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - RyR Listado
+{% endblock %}
+
+{% block body %}
+
+
+<div class="row">       
+
+<!-- FILTERING -->
+<div class="col-md-12">
+    <div  id="filters" class="collapse">
+
+        <form class="card pl-3 pr-3 pt-2 bg-light mb-3" action="{{ path('ryr') }}" method="get" >
+            <div class="row">
+                 
+                    <div class="col-md-2">{{ form_row(filterForm.id) }}</div>
+                    <div class="col-md-4">{{ form_row(filterForm.ryRTipo) }}</div>
+                    {# INICIO Render manual date range#}
+                    <div id="fecha" class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="fecha_left_date">Fecha desde</label>
+                                    <input type="date" id="fecha_left_date" name="fecha[left_date]" class="form-control" value="{{ filterForm.fecha.children.left_date.vars.value}}" />
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="fecha_right_date">Fecha hasta</label>
+                                    <input type="date" id="fecha_right_date" name="fecha[right_date]" class="form-control" value="{{ filterForm.fecha.children.right_date.vars.value}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    {% do filterForm.fecha.setRendered %}
+                    {# FIN Render manual date range#}
+                 
+                    
+
+                                <div class="col-md-6">
+                    {{ form_rest(filterForm) }}
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-warning" name="filter_action" value="filter"><i class="fas fa-filter"></i> Filtrar</button>
+                        <button type="submit" class="btn btn-secondary" name="filter_action" value="reset"><i class="fas fa-minus"></i> Reset</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END FILTERING -->
+
+
+<div class="col-md-3 pull-left">
+        
+    <!-- PAGE SIZE -->
+    <div class="pagination form-inline ">
+        <select class = "form-control"  onchange="window.location = this.value" >
+            <option value='{{ path('ryr', app.request.query.all|merge({'pcg_show': '10'})) }}' {% if app.request.get('pcg_show') == 10 %} selected {% endif %}>10</option>
+            <option value='{{ path('ryr', app.request.query.all|merge({'pcg_show': '20'})) }}' {% if app.request.get('pcg_show') == 20 %} selected {% endif %}>20</option>
+            <option value='{{ path('ryr', app.request.query.all|merge({'pcg_show': '50'})) }}' {% if app.request.get('pcg_show') == 50 %} selected {% endif %}>50</option>
+            <option value='{{ path('ryr', app.request.query.all|merge({'pcg_show': '100'})) }}' {% if app.request.get('pcg_show') == 100 %} selected {% endif %}>100</option>
+            <option value='{{ path('ryr', app.request.query.all|merge({'pcg_show': '500'})) }}' {% if app.request.get('pcg_show') == 500 %} selected {% endif %}>500</option>
+        </select>
+    </div>
+    <!-- END PAGE SIZE -->
+
+</div>
+
+<div class="col-md-6">
+
+
+</div>
+
+<div class="col-md-3">
+	<div class="float-right">
+    <a class="btn dropdown-toggle pull-right h3" data-toggle="collapse" data-target="#filters">
+        Filtros
+        <span class="caret"></span>
+    </a>
+    	</div>	
+</div>
+
+    <div class="col-md-12">
+        {%- if form_errors(filterForm) %}
+        <div class="alert alert-block alert-error fade in form-errors">
+            {{ form_errors(filterForm) }}
+        </div>
+        {% endif %}
+    </div>
+
+</div> <!-- /#top -->
+
+
+<div class="row">
+    <div class="col-md-12">
+        {% for type, flashMessages in app.session.flashbag.all() %} 
+        {% for flashMessage in flashMessages %}
+        <div class="alert alert-{{ type }}">
+            {{ flashMessage|raw }}
+        </div>
+         {% endfor %} 
+         {% endfor %} 
+    </div>
+</div>
+    
+
+<!--<div class="row"> -->
+
+                <form method="POST" id="bulk_form" action="{{ path('ryr_bulk_action') }} ">
+			<div class="card mb-4 mt-4">	
+            <table class="table table-striped table-hover table-sm" id="tabla" namefile="RyR">
+                <thead>
+                    <tr>
+                        
+
+                {% import "@PetkoparaCrudGenerator/macros/th_sortable.html.twig" as macros %}
+                            <th style="border:0px;">{{macros.th_sortable('id',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'ryr','Id')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('fecha',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'ryr','Fecha')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('gage',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'ryr','Instrumento')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('ryRTipo',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'ryr','Tipo')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('soloPdf',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'ryr','Pdf')}}</th>
+                            <th style="border:0px;">{{macros.th_sortable('memo',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , 'ryr','Comentario')}}</th>                       
+                        <th style="border:0px;" width = "130px" class="noExl">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ryR in ryRs %}
+                    <tr>
+                        <td>{{ ryR.id }}</td>
+                        <td>{%- if ryR.fecha %}{{ ryR.fecha|date('Y-m-d') }}{% endif %}</td>
+                        <td>{{ ryR.gage.id }}</td>
+                        <td>{%- if ryR.ryRtipo %}{{ ryR.ryRtipo.descripcion }}{% endif %}</td>
+                        <td>{%- if ryR.soloPdf %}
+                            {% if ryR.rutaArchivo is not empty %}
+                            <a  href="#" id="pdf" onclick="mypdf(encodeURI('{{ ryR.rutaArchivo|replace('\\', '//') }}'))"><i class="fas fa-file-pdf"></i></a>
+                            {% endif %}
+                        {% else %}
+                        {% endif %}</td>
+                        <td>{{ ryR.memo }}</td>
+                        <td class="actions  noExl"><!-- Extra small button group -->
+                            <div class="btn-group">
+                                <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Opciones <span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    {%- if not ryR.soloPdf %}
+                                    <a  class="dropdown-item" title='Pdf'  href="{{ path('ryr_pdf', { 'id': ryR.id }) }}">
+                                        Imprimir
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    {% endif %}
+                                    <a class="dropdown-item" title='Vista Previa' href="{{ path('ryr_show', { 'id': ryR.id }) }}">
+                                        Vista Previa
+                                    </a>
+                                    <a  class="dropdown-item" title='Editar'  href="{{ path('ryr_edit', { 'id': ryR.id }) }}">
+                                        Editar
+                                    </a>
+                                    <a  class="dropdown-item" onclick="return confirm('Seguro desea Eliminar!');" title="Delete" href="{{ path('ryr_by_id_delete', { 'id': ryR.id}) }}">
+                                        Eliminar
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+			</div> <!-- card -->
+        </form>
+
+
+        <!--</div>  /#list -->
+
+
+
+
+<div class="row">
+    <div class="col-md-4 pull-left">
+		<!-- /#Exportar Datos -->
+        <div class="dropdown dropup">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar Datos
+            <span class="caret"></span></button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" onclick="exportToExcel()" href="#"><img src="{{ asset('images/icons/xls.png') }}" width="24"> Excel</a>
+            </div>
+        </div>
+        <!-- /#Exportar Datos -->
+    </div>
+    
+    <div class='col-md-3 text-center'>
+         <p>{{totalOfRecordsString}}</p>
+    </div>
+ 
+    <div class="col-md-5">
+		<div class="float-right">
+         {{ pagerHtml|raw }} 
+		</div>
+    </div>
+</div> <!-- /#bottom -->
+
+
+
+{% endblock %}
+
+{% block javascript %}
+	{{ parent()}}
+    <script type="text/javascript" src=" {{ asset('js/jquery.table2excel.js') }}"></script>
+    <script type="text/javascript" src=" {{ asset('js/ryr_js.js') }}"></script>
+{% endblock %} 

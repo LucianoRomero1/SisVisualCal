@@ -1,0 +1,28 @@
+<table class="table table-hover table-sm" style="font-size: 14px;">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Fecha</th>
+            <th>Realizada Por</th>
+            <th>Pasa</th>
+            <th>Temperatura</th>
+            <th>Humedad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for conten in contenido %}
+        <tr>
+            <td>{{conten.id }}</td>
+            <td>{{conten.fecha|date('Y-m-d H:i:s')}}</td>
+            <td>{{conten.realizadaPor}}</td>
+            <td>
+                {%- if (conten.pasa ) %}
+                    <i class="fas fa-check"></i>
+                {% endif%}
+            </td>
+            <td>{{conten.temperatura}}</td>
+            <td>{{conten.humedad}}</td>
+        </tr>        
+        {% endfor %} 
+    </tbody>
+</table>

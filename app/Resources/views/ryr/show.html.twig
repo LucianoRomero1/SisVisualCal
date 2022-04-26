@@ -1,0 +1,365 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - RyR
+{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-2">
+            <p><strong>Id</strong></p>
+            <p>
+                {{ ryR.id }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Fecha</strong></p>
+            <p>
+                {% if ryR.fecha %}{{ ryR.fecha|date('Y-m-d') }}{% endif %}
+            </p>
+
+        </div>
+        <div class="col-md-5">
+            <p><strong>Instrumento</strong></p>
+            <p>
+                {{ryR.gage.id}}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>PDF?</strong></p>
+            <p>
+                {% if ryR.soloPdf %}<i class="fas fa-check"></i>{% else %}No{% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <p><strong>Tipo</strong></p>
+            <p>
+                {{ ryR.ryRTipo.descripcion }}
+            </p>
+        </div>
+        <div class="col-md-9">
+            <p><strong>Comentario</strong></p>
+            <p>
+                {{ ryR.memo }}
+            </p>
+        </div>
+    </div>
+
+    <div id="conPdf" {% if not ryR.soloPdf %} class="d-none" {% endif %}>
+    <div class="row">
+        <div class="col-md-12">
+           <p><strong>Ruta</strong></p>
+            <p>
+                {{ ryR.rutaArchivo }}
+            </p>
+        </div>
+    </div>
+    </div>
+
+    <div id="sinPdf" {% if ryR.soloPdf %} class="d-none" {% endif %}>
+    <div class="row">
+        <div class="col-md-2">
+            <p><strong>Nº Pieza</strong></p>
+            <p>
+                {{ ryR.partNo }}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Desc. Pieza</strong></p>
+            <p>
+                {{ ryR.partName }}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Características</strong></p>
+            <p>
+                {{ ryR.caracteristic }}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Lím. Superior</strong></p>
+            <p>
+                {{ ryR.usl|number_format(3, '.', ',') }}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Lím. Inferior</strong></p>
+            <p>
+                {{ ryR.lsl|number_format(3, '.', ',') }}
+            </p>
+        </div>
+    </div>
+    
+    <hr/>
+
+    <div class="row">
+        <div class="col-md-4">
+        {# OPERADOR A#}
+        <table style="width:100%" class="table table-striped table-sm">
+            <tr>
+                <td colspan="3" class="text-center">
+                    <b>OPERADOR A</b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-center">
+                    {{ ryR.nameA }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ ryR.a11|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a21|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a31|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.a12|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a22|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a32|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.a13|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a23|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a33|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.a14|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a24|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a34|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.a15|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a25|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a35|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.a16|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a26|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a36|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.a17|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a27|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a37|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.a18|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a28|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a38|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.a19|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a29|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a39|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.a110|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a210|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.a310|number_format(3, '.', ',')  }}</td>
+            </tr>
+        </table>
+        {# FIN OPERADOR A#}
+        </div>
+        <div class="col-md-4">
+        {# OPERADOR B#}
+        <table style="width:100%" class="table table-striped table-sm">
+            <tr>
+                <td colspan="3" class="text-center">
+                    <b>OPERADOR B</b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-center">
+                    {{ ryR.nameB }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ ryR.b11|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b21|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b31|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.b12|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b22|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b32|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.b13|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b23|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b33|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.b14|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b24|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b34|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.b15|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b25|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b35|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.b16|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b26|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b36|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.b17|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b27|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b37|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.b18|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b28|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b38|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.b19|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b29|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b39|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.b110|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b210|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.b310|number_format(3, '.', ',')  }}</td>
+            </tr>
+        </table>
+        {# FIN OPERADOR B#}
+        </div>
+
+        <div class="col-md-4">
+        {# OPERADOR C#}
+        <table style="width:100%" class="table table-striped table-sm">
+            <tr>
+                <td colspan="3" class="text-center">
+                    <b>OPERADOR C</b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-center">
+                    {% if ryR.nameC %}{{ ryR.nameC }}{% else %} &nbsp; {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ ryR.c11|number_format(3, '.', ',') }}</td>
+                <td>{{ ryR.c21|number_format(3, '.', ',') }}</td>
+                <td>{{ ryR.c31|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.c12|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c22|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c32|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.c13|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c23|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c33|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.c14|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c24|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c34|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.c15|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c25|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c35|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.c16|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c26|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c36|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.c17|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c27|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c37|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.c18|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c28|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c38|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.c19|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c29|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c39|number_format(3, '.', ',')  }}</td>
+            </tr>
+            <tr>
+                <td>{{ ryR.c110|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c210|number_format(3, '.', ',')  }}</td>
+                <td>{{ ryR.c310|number_format(3, '.', ',')  }}</td>
+            </tr>
+        </table>
+        {# FIN OPERADOR C#}
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+        <table style="width:100%">
+            <tr>
+                <th style="background-color: #e5e8e8 ;width:20%" class="text-center">Repetibilidad</th>
+                <th style="width:20%" class="text-center">Reproducibilidad</th>
+                <th style="background-color: #e5e8e8 ;width:20%" class="text-center">Variación de pieza</th>
+                <th style="width:20%" class="text-center">Variación Total</th>
+                <th style="background-color: #e5e8e8 ;width:20%" class="text-center">RyR Instrum.</th>
+            </tr>
+            <tr>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">VE:</label><div class="col-md-7"> {{ ryR.ev|number_format(4, '.', ',') }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">VEval:</label><div class="col-md-7"> {{ ryR.av|number_format(4, '.', ',') }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">VP.:</label><div class="col-md-7"> {{ ryR.pv|number_format(4, '.', ',') }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">BARRA R:</label><div class="col-md-7"> {{ ryR.rBar|number_format(4, '.', ',') }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">RyR:</label><div class="col-md-7"> {{ ryR.rr|number_format(4, '.', ',') }}</div></div></td>
+            </tr>
+            <tr>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">%Tol.:</label><div class="col-md-7"> {{ ryR.evtolPorc|number_format(1, '.', ',') }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">%Tol.:</label><div class="col-md-7"> {{ ryR.avtolPorc|number_format(1, '.', ',')  }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">%Tol.:</label><div class="col-md-7"> {{ ryR.pvtolPorc|number_format(1, '.', ',')  }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">LSC-R:</label><div class="col-md-7"> {{ ryR.uclR|number_format(4, '.', ',') }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">%Tol.:</label><div class="col-md-7"> {{ ryR.rrtolPorc|number_format(1, '.', ',')  }}</div></div></td>
+            </tr>
+            <tr>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">%VT.:</label><div class="col-md-7"> {{ ryR.evtvPorc|number_format(1, '.', ',') }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">%VT.:</label><div class="col-md-7"> {{ ryR.avtvPorc|number_format(1, '.', ',') }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">%VT.:</label><div class="col-md-7"> {{ ryR.pvtvPorc|number_format(1, '.', ',') }}</div></div></td>
+                <td style="padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">VT.:</label><div class="col-md-7"> {{ ryR.tv|number_format(4, '.', ',')  }}</div></div></td>
+                <td style="background-color: #e5e8e8 ;padding-left:10px;padding-right:10px;"><div class="form-group row" style="margin-bottom:0px;"><label for="inputPassword" class="col-md-5 col-form-label">%VT.:</label><div class="col-md-7"> {{ ryR.rrtvPorc|number_format(1, '.', ',') }}</div></div></td>
+            </tr>    
+        </table>
+        </div>
+    </div>
+    
+    <hr/>
+    
+    <div class="row">
+        <div class="col-md-2">
+            <p><strong>Pruebas</strong></p>
+            <p>
+                {{ ryR.trials }}
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p><strong>Operadores</strong></p>
+            <p>
+                {{ ryR.ops }}
+            </p>
+        </div>
+    </div>
+    </div>{# FIN DIV SINPDF #}
+<hr/>
+
+
+<div class="form-group">
+    <a class="btn btn-secondary" href="{{ path('ryr') }}">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+</div>
+
+
+{% endblock %}
+

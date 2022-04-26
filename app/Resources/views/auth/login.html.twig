@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Welcome! </title>
+
+    <!-- Fonts 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">-->
+    <!-- Styles -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('css/signin.css')}} " rel="stylesheet">
+    <style>
+        body {
+            /*font-family: 'Lato';*/
+        }
+        .fa-btn {
+            margin-right: 6px;
+        }
+    </style>
+    
+    
+</head>
+
+<body class="text-center">
+    <form class="form-signin" role="form" method="POST" action="{{ path('security_login_check') }}">
+        
+        
+                        
+        <img class="mb-4" src="{{ asset('images/favicon.png') }}" alt="" width="310" height="180" id="bg">
+        <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
+        <label for="inputUsername" class="sr-only">Usuario</label>
+        <input id="username" type="text" class="form-control text-center" name="_username" value="{{ last_username }}"  placeholder="Usuario" required autofocus>
+        <label for="inputPassword" class="sr-only">Contraseña</label>
+        <input type="password" id="password" class="form-control text-center" placeholder="Password" name="_password" required>
+        <div class="checkbox mb-3">
+        
+        </div>
+		
+		
+        <label>- Conexión - </label>
+        <select style="margin-bottom: 30px;padding:5px;" class="form-control" id="coneccionDB" name="_coneccion" >
+			<option value="neosys">neosys</option>
+			<option value="neosysmp">neosysmp</option>
+        </select>
+        
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+      
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData) }}
+            </div>
+        {% endif %}
+        
+    </form>
+      
+    
+    <!-- JavaScripts -->
+    <script src="{{ asset('js/jquery-3.2.1.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/petkopara-crud-generator.js') }}"></script>
+	
+	<script>
+		$("#coneccionDB").change(function(){
+			var conexion = $("#coneccionDB").val();
+			if (conexion == "neosys"){
+				$("#bg").attr('src',"{{ asset('images/favicon.png') }}");
+				$("#bg").attr('height',"180");
+				$("#bg").attr('width',"310");
+				$("#bg").css('margin-bottom',"0");
+			}
+			if (conexion == "neosysmp"){
+				$("#bg").attr('src',"{{ asset('images/mp.png') }}");
+				$("#bg").attr('height',"180");
+				$("#bg").attr('width',"310");
+				$("#bg").css('margin-bottom',"30");
+			}
+			return false;
+		});
+		
+	</script>
+    
+</body>
+</html>
+
+{#    
+{% block bodys %}
+    
+     
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Login</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ path('security_login_check') }}">
+                        {% if error %}
+                            <div class="alert alert-danger">
+                                {{ error.messageKey|trans(error.messageData) }}
+                            </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <label for="username" class="col-md-4 control-label">Usuario</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control" name="_username" value="{{ last_username }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-md-4 control-label">Password</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" name="_password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-btn fa-sign-in"></i> Login
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+#}

@@ -1,0 +1,342 @@
+<table>
+    <tr>
+        {# CUADRO IZQUIERDO #}
+        <td style="width:50%">
+            <table cellpadding="2">
+                <tr>
+                    <td  style="font-size: 8pt;font-weight: bold;text-align: right;">Fecha Estudio:</td>
+                    <td>{{ ryr.fecha|date('Y-m-d') }}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8pt;font-weight: bold;text-align: right;">Id. del Instrumento:</td>
+                    <td>{{ ryr.gage.id }}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8pt;font-weight: bold;text-align: right;">Desc. del Instrum:</td>
+                    <td>{{ ryr.gage.descripcion}}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8pt;font-weight: bold;text-align: right;">Operadores: </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:14%">{{ ryr.ops }}</td>
+                                <td style="width:53%;font-size: 8pt;font-weight: bold;text-align: right;">Pruebas:</td>
+                                <td style="width:33%;text-align: right;">{{ ryr.trials }}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8pt;font-weight: bold;text-align: right;">Tipo de Estudio:</td>
+                    <td>{{ryr.ryRTipo.descripcion}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </td>
+        {# CUADRO DERECHO #}
+        <td style="width:50%">
+            <table cellpadding="2">
+                {#<tr>
+                    <td style="font-size: 8pt;font-weight: bold;text-align: right;">Num. Pieza de Compañia:</td>
+                    <td></td>
+                </tr>
+                #}
+                <tr>
+                    <td style="font-size: 8pt;font-weight: bold;text-align: right;">Num. de Pieza:</td>
+                    <td>{{ ryr.partNo }}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8pt;font-weight: bold;text-align: right;">Desc. de la Pieza:</td>
+                    <td>{{ ryr.partName}}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8pt;font-weight: bold;text-align: right;">Característica: </td>
+                    <td>{{ ryr.caracteristic }}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8pt;font-weight: bold;text-align: right;">Limites de Especificación:</td>
+                    <td>{{ryr.lsl|number_format(3, '.', ',')}} {{ryr.usl|number_format(3, '.', ',')}}</td>
+                </tr>
+                {#<tr>
+                    <td style="font-size: 8pt;font-weight: bold;text-align: right;">Variación de Proceso 6-Sigma: </td>
+                    <td></td>
+                </tr>#}
+            </table>
+        </td>
+    </tr>
+</table>
+
+<table cellpadding="2">
+    <tr>
+        <td style="width:20%;font-size: 8pt;font-weight: bold;text-align: right;">Comentario: </td>
+        <td style="width:80%;">{{ ryr.memo}}</td>
+    </tr>
+    {# - - - - Inicio linea - - - - #}
+    <tr>
+        <td colspan="2" style="line-height: 0.5;">
+            <hr/>
+        </td>    
+    </tr>
+    {# - - - - Fin linea - - - - #}
+</table>
+
+
+
+<table style="width: 100%;text-align:center;" border="0" cellpadding="2">
+    <tr>
+        <td>{#blanco#}</td>
+        <td colspan="3"><b>Oper A:</b> {{ ryr.nameA}}</td>
+        <td>{#blanco#}</td>
+        <td colspan="3"><b>Oper B:</b> {{ ryr.nameB}}</td>
+        <td>{#blanco#}</td>
+        <td  colspan="3"><b>Oper C:</b> {{ ryr.nameC}}</td>
+    </tr>
+    <tr>
+        <td>{#blanco#}1</td>
+        <td border="1">{%- if ( ryr.a11 or ryr.a11 == "0" ) %}{{ryr.a11|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a21 or ryr.a21 == "0" ) %}{{ryr.a21|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a31 or ryr.a31 == "0" ) %}{{ryr.a31|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.b11 or ryr.b11 == "0" ) %}{{ryr.b11|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b21 or ryr.b21 == "0" ) %}{{ryr.b21|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b31 or ryr.b31 == "0" ) %}{{ryr.b31|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.c11 or ryr.c11 == "0" ) %}{{ryr.c11|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c21 or ryr.c21 == "0" ) %}{{ryr.c21|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c31 or ryr.c31 == "0" ) %}{{ryr.c31|number_format(3, '.', ',')}}{% endif %}</td>
+    </tr>
+    <tr>
+        <td>{#blanco#}2</td>
+        <td border="1">{%- if ( ryr.a12 or ryr.a12 == "0" ) %}{{ryr.a12|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a22 or ryr.a22 == "0" ) %}{{ryr.a22|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a32 or ryr.a32 == "0" ) %}{{ryr.a32|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.b12 or ryr.b12 == "0" ) %}{{ryr.b12|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b22 or ryr.b22 == "0" ) %}{{ryr.b22|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b32 or ryr.b32 == "0" ) %}{{ryr.b32|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.c12 or ryr.c12 == "0" ) %}{{ryr.c12|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c22 or ryr.c22 == "0" ) %}{{ryr.c22|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c32 or ryr.c32 == "0" ) %}{{ryr.c32|number_format(3, '.', ',')}}{% endif %}</td>
+    </tr>
+    <tr>
+        <td>{#blanco#}3</td>
+        <td border="1">{%- if ( ryr.a13 or ryr.a13 == "0" ) %}{{ryr.a13|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a23 or ryr.a23 == "0" ) %}{{ryr.a23|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a33 or ryr.a33 == "0" ) %}{{ryr.a33|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.b13 or ryr.b13 == "0" ) %}{{ryr.b13|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b23 or ryr.b23 == "0" ) %}{{ryr.b23|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b33 or ryr.b33 == "0" ) %}{{ryr.b33|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.c13 or ryr.c13 == "0" ) %}{{ryr.c13|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c23 or ryr.c23 == "0" ) %}{{ryr.c23|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c33 or ryr.c33 == "0" ) %}{{ryr.c33|number_format(3, '.', ',')}}{% endif %}</td>
+    </tr>
+    <tr>
+        <td>{#blanco#}4</td>
+        <td border="1">{%- if ( ryr.a14 or ryr.a14 == "0" ) %}{{ryr.a14|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a24 or ryr.a24 == "0" ) %}{{ryr.a24|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a34 or ryr.a34 == "0" ) %}{{ryr.a34|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.b14 or ryr.b14 == "0" ) %}{{ryr.b14|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b24 or ryr.b24 == "0" ) %}{{ryr.b24|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b34 or ryr.b34 == "0" ) %}{{ryr.b34|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.c14 or ryr.c14 == "0" ) %}{{ryr.c14|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c24 or ryr.c24 == "0" ) %}{{ryr.c24|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c34 or ryr.c34 == "0" ) %}{{ryr.c34|number_format(3, '.', ',')}}{% endif %}</td>
+    </tr>
+    <tr>
+        <td>{#blanco#}5</td>
+        <td border="1">{%- if ( ryr.a15 or ryr.a15 == "0" ) %}{{ryr.a15|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a25 or ryr.a25 == "0" ) %}{{ryr.a25|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a35 or ryr.a35 == "0" ) %}{{ryr.a35|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.b15 or ryr.b15 == "0" ) %}{{ryr.b15|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b25 or ryr.b25 == "0" ) %}{{ryr.b25|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b35 or ryr.b35 == "0" ) %}{{ryr.b35|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.c15 or ryr.c15 == "0" ) %}{{ryr.c15|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c25 or ryr.c25 == "0" ) %}{{ryr.c25|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c35 or ryr.c35 == "0" ) %}{{ryr.c35|number_format(3, '.', ',')}}{% endif %}</td>
+    </tr>
+    <tr>
+        <td>{#blanco#}6</td>
+        <td border="1">{%- if ( ryr.a16 or ryr.a16 == "0" ) %}{{ryr.a16|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a26 or ryr.a26 == "0" ) %}{{ryr.a26|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a36 or ryr.a36 == "0" ) %}{{ryr.a36|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.b16 or ryr.b16 == "0" ) %}{{ryr.b16|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b26 or ryr.b26 == "0" ) %}{{ryr.b26|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b36 or ryr.b36 == "0" ) %}{{ryr.b36|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.c16 or ryr.c16 == "0" ) %}{{ryr.c16|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c26 or ryr.c26 == "0" ) %}{{ryr.c26|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c36 or ryr.c36 == "0" ) %}{{ryr.c36|number_format(3, '.', ',')}}{% endif %}</td>
+    </tr>
+    <tr>
+        <td>{#blanco#}7</td>
+        <td border="1">{%- if ( ryr.a17 or ryr.a17 == "0" ) %}{{ryr.a17|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a27 or ryr.a27 == "0" ) %}{{ryr.a27|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a37 or ryr.a37 == "0" ) %}{{ryr.a37|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.b17 or ryr.b17 == "0" ) %}{{ryr.b17|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b27 or ryr.b27 == "0" ) %}{{ryr.b27|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b37 or ryr.b37 == "0" ) %}{{ryr.b37|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.c17 or ryr.c17 == "0" ) %}{{ryr.c17|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c27 or ryr.c27 == "0" ) %}{{ryr.c27|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c37 or ryr.c37 == "0" ) %}{{ryr.c37|number_format(3, '.', ',')}}{% endif %}</td>
+    </tr>
+    <tr>
+        <td>{#blanco#}8</td>
+        <td border="1">{%- if ( ryr.a18 or ryr.a18 == "0" ) %}{{ryr.a18|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a28 or ryr.a28 == "0" ) %}{{ryr.a28|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a38 or ryr.a38 == "0" ) %}{{ryr.a38|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.b18 or ryr.b18 == "0" ) %}{{ryr.b18|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b28 or ryr.b28 == "0" ) %}{{ryr.b28|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b38 or ryr.b38 == "0" ) %}{{ryr.b38|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.c18 or ryr.c18 == "0" ) %}{{ryr.c18|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c28 or ryr.c28 == "0" ) %}{{ryr.c28|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c38 or ryr.c38 == "0" ) %}{{ryr.c38|number_format(3, '.', ',')}}{% endif %}</td>
+    </tr>
+    <tr>
+        <td>{#blanco#}9</td>
+        <td border="1">{%- if ( ryr.a19 or ryr.a19 == "0" ) %}{{ryr.a19|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a29 or ryr.a29 == "0" ) %}{{ryr.a29|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a39 or ryr.a39 == "0" ) %}{{ryr.a39|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.b19 or ryr.b19 == "0" ) %}{{ryr.b19|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b29 or ryr.b29 == "0" ) %}{{ryr.b29|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b39 or ryr.b39 == "0" ) %}{{ryr.b39|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.c19 or ryr.c19 == "0" ) %}{{ryr.c19|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c29 or ryr.c29 == "0" ) %}{{ryr.c29|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c39 or ryr.c39 == "0" ) %}{{ryr.c39|number_format(3, '.', ',')}}{% endif %}</td>
+    </tr>
+    <tr>
+        <td>{#blanco#}10</td>
+        <td border="1">{%- if ( ryr.a110 or ryr.a110 == "0" ) %}{{ryr.a110|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a210 or ryr.a210 == "0" ) %}{{ryr.a210|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.a310 or ryr.a310 == "0" ) %}{{ryr.a310|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.b110 or ryr.b110 == "0" ) %}{{ryr.b110|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b210 or ryr.b210 == "0" ) %}{{ryr.b210|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.b310 or ryr.b310 == "0" ) %}{{ryr.b310|number_format(3, '.', ',')}}{% endif %}</td>
+        <td>{#blanco#}</td>
+        <td border="1">{%- if ( ryr.c110 or ryr.c110 == "0" ) %}{{ryr.c110|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c210 or ryr.c210 == "0" ) %}{{ryr.c210|number_format(3, '.', ',')}}{% endif %}</td>
+        <td border="1">{%- if ( ryr.c310 or ryr.c310 == "0" ) %}{{ryr.c310|number_format(3, '.', ',')}}{% endif %}</td>
+    </tr>
+</table>
+
+<table style="width: 100%;text-align:center;" border="0" cellpadding="2">
+            {# - - - - Inicio linea - - - - #}
+            <tr>
+                <td colspan="10" style="line-height: 0.5;">
+                    <hr/>
+                </td>    
+            </tr>
+            {# - - - - Fin linea - - - - #}
+            <tr>
+                <td colspan="2" style="font-size: 8pt;font-weight: bold;">Repetibilidad</td>
+                <td colspan="2" style="font-size: 8pt;font-weight: bold;">Reproducibilidad</td>
+                <td colspan="2" style="font-size: 8pt;font-weight: bold;">Variación de pieza</td>
+                <td colspan="2" style="font-size: 8pt;font-weight: bold;">Variación Total</td>
+                <td colspan="2" style="font-size: 8pt;font-weight: bold;">RyR Instrum.</td>
+            </tr>
+            <tr>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">VE:</td>
+                <td>{{ ryr.ev|number_format(4, '.', ',') }}</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">VEval:</td>
+                <td>{{ ryr.av|number_format(4, '.', ',') }}</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">VP.:</td>
+                <td>{{ ryr.pv|number_format(4, '.', ',') }}</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">BARRA R:</td>
+                <td>{{ ryr.rBar|number_format(4, '.', ',') }}</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">RyR:</td>
+                <td>{{ ryr.rr|number_format(4, '.', ',') }}</td>
+            </tr>
+            <tr>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">%Tol.:</td>
+                <td>{{ ryr.evtolPorc|number_format(1, '.', ',') }} %</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">%Tol.:</td>
+                <td>{{ ryr.avtolPorc|number_format(1, '.', ',') }} %</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">%Tol.:</td>
+                <td>{{ ryr.pvtolPorc|number_format(1, '.', ',') }} %</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">LSC-R:</td>
+                <td>{{ ryr.uclR|number_format(4, '.', ',')}}</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">%Tol.:</td>
+                <td>{{ ryr.rrtolPorc|number_format(1, '.', ',') }} %</td>
+            </tr>
+            <tr>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">%VT.:</td>
+                <td>{{ ryr.evtvPorc|number_format(1, '.', ',') }} %</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">%VT.:</td>
+                <td>{{ ryr.avtvPorc|number_format(1, '.', ',') }} %</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">%VT.:</td>
+                <td>{{ ryr.pvtvPorc|number_format(1, '.', ',') }} %</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">VT.:</td>
+                <td>{{ ryr.tv|number_format(4, '.', ',') }}</td>
+                <td style="font-size: 8pt;font-weight: bold;text-align: right;">%VT.:</td>
+                <td style="font-weight: bold;background-color:#FFFF00;">{{ ryr.rrtvPorc|number_format(1, '.', ',') }} %</td>
+            </tr>    
+            {# - - - - Inicio linea - - - - #}
+            <tr>
+                <td colspan="10" style="line-height: 0.5;">
+                    <hr/>
+                </td>    
+            </tr>
+            {# - - - - Fin linea - - - - #}
+            <tr>
+                <td colspan="8" style="text-align: right;">
+                    Resultado:
+                </td>
+                <td colspan="2" style="font-weight: bold;text-align: right;">
+                    {% if ( ryr.rrtvPorc <= 10) %}
+                        APROBADO
+                    {% elseif (ryr.rrtvPorc > 10 and ryr.rrtvPorc <= 30) %}
+                        ACEPTABLE
+                    {% else %}
+                        RECHAZADO
+                    {% endif %}
+                </td>    
+            </tr>
+            {# - - - - Inicio linea - - - - #}
+            <tr>
+                <td colspan="10" style="line-height: 0.5;">
+                    <hr/>
+                </td>    
+            </tr>
+            {# - - - - Fin linea - - - - #}
+</table>
+
+<p style="text-align:center;">
+Un (*) es usado para identificar esos grupos de mediciones que usan un valor de Rango que excede el valor de limite de LSC-R. Corrige repitiendo aquellas mediciones usuando el mismo evaluador y parte, o descarte los valores y recalule los resultados del estudio y el valor LSC-R.
+</p>
+
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+
+<table>
+    <tr>
+        <td style="width:50%">
+        </td>
+        <td style="width:20%">
+            REALIZADO POR: 
+        </td>
+        <td style="width:30%">
+            <hr/>
+        </td>
+    </tr>
+</table>

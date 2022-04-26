@@ -1,0 +1,236 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} -  Editar Instrumento
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="row">
+    <div class="col-md-12">
+        {% for type, flashMessages in app.session.flashbag.all() %} 
+        {% for flashMessage in flashMessages %}
+        <div class="alert alert-{{ type }}">
+            {{ flashMessage|raw }}
+        </div>
+         {% endfor %} 
+         {% endfor %} 
+    </div>
+</div>
+    
+    {{ form_start(edit_form) }}
+    {{ form_errors(edit_form) }}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group"><label class="control-label required" for="gage_id">Instrumento</label><input type="text" id="gage_id" readonly required="required" class="form-control" value="{{gage.id}}"></div>
+        </div>
+        <div style="display:none;">
+            {{ form_row(edit_form.id) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.estado) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(edit_form.patronRef) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.nroCertificado) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(edit_form.nroSerie) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.nroCuenta) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.nroModelo) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(edit_form.descripcion) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(edit_form.tipo) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.gageUOM) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(edit_form.nroPlano) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.fechaPlano) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.nivelCambio) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.fechaCambio) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(edit_form.notas) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(edit_form.almacen) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(edit_form.ubicacion) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_row(edit_form.fechaServicio) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(edit_form.fechaRetiro) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(edit_form.proveedor) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(edit_form.costo) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(edit_form.fechaCompra) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(edit_form.otraInfo) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(edit_form.fabricante) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(edit_form.owner) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(edit_form.resolucion) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.toleranciaPos) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.toleranciaNeg) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.incertidumbre) }}
+        </div>
+    </div>
+    <h4>CALIBRACION</h4>
+    <hr/>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(edit_form.calUso) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.calibrador) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.ultCalibrador) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_row(edit_form.calFrecuencia) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(edit_form.calFrecuenciaUM) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(edit_form.calHoras) }}
+        </div>
+        <div class="col-md-3">
+            {# para que no se actualicen estas fechas#}
+            {# form_row(edit_form.calUltimaFecha) #}
+            <div class="form-group">
+                <label class="control-label required" for="calUltimaFecha">Ultima Calibración</label>
+                {% if (gage.calUltimaFecha != null) %}
+                    <input type="text" value="{{ gage.calUltimaFecha|date('Y-m-d') }}" id="calUltimaFecha" required="required" class="form-control" readonly>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            {# para que no se actualicen estas fechas #}
+            {# form_row(edit_form.calProximaFecha) #}
+            <div class="form-group">
+                <label class="control-label required" for="calProximaFecha">Próxima Calibración</label>
+                {% if (gage.calProximaFecha != null) %}
+                    <input type="text" value="{{ gage.calProximaFecha|date('Y-m-d') }}" id="calProximaFecha" required="required" class="form-control" readonly>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <h4>RyR</h4>
+    <hr/>
+
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_row(edit_form.rrFrecuencia) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(edit_form.rrFrecuenciaUM) }}
+        </div>
+        <div class="col-md-2">
+            {# form_row(edit_form.rrUltimaFecha) #}
+            <div class="form-group">
+                <label class="control-label required" for="rrUltimaFecha">Ultima RyR</label>
+                {% if (gage.rrUltimaFecha != null) %}
+                    <input type="text" value="{{ gage.rrUltimaFecha|date('Y-m-d') }}" id="rrUltimaFecha" required="required" class="form-control" readonly>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            {{ form_row(edit_form.rrResultado) }}
+        </div>
+        <div class="col-md-3">
+            {# form_row(edit_form.rrProximaFecha) #}
+            <div class="form-group">
+                <label class="control-label required" for="rrProximaFecha">Próxima RyR</label>
+                {% if (gage.rrProximaFecha != null) %}
+                    <input type="text" value="{{ gage.rrProximaFecha|date('Y-m-d') }}" id="rrProximaFecha" required="required" class="form-control" readonly>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {{ form_rest(edit_form) }}
+    <p>
+        <button type="submit" class="btn btn-primary">
+            <i class="far fa-check-circle"></i> Guardar
+        </button>
+    </p>
+
+    <hr/>
+
+    
+<div class="form-group">
+    <a class="btn btn-secondary" href="{{ path('gage') }}">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+</div>
+
+
+
+
+{% endblock %}
+

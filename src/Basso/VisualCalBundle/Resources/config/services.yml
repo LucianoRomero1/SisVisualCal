@@ -1,0 +1,4 @@
+services:
+#    basso_visual_cal.example:
+#        class: Basso\VisualCalBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

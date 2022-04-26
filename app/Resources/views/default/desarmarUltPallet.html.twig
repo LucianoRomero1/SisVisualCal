@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - Desarmar Ult. Pallet
+{% endblock %}
+
+{% block javascript %}
+    {{parent()}}
+    <script src="{{ asset('js/jquery-ui.min.js')}}"></script>
+    <script src="{{ asset('js/desarmarUltPallet_js.js') }}"></script>
+{% endblock %}
+
+
+{% block body %}
+    <div id="loading" class="loading"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% for type, flashMessages in app.session.flashbag.all() %} 
+            {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+                {{ flashMessage|raw }}
+            </div>
+            {% endfor %} 
+            {% endfor %} 
+        </div>
+    </div>
+    
+    <div id="rutaDesarmarUltPalletPost" ruta="{{ path('desarmarUltPalletPost')  }}"></div>
+    <div id="rutaRecUltPalletJson" ruta="{{ path('recUltPalletJson', { 'id': -1 })  }}"></div>
+    <div id="msgErrores"></div>
+
+    {{ form_start(form, { 'action': '',  'attr' : { 'class': 'ajaxFormBusqueda', 'autocomplete' : 'off' } }) }}
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="far fa-file"></i>&nbsp;&nbsp;<b>Datos</b>
+        </div>
+        <div class="card-body" style="padding-bottom:0px;padding-top:16px;">
+            <div class="row">
+                
+                <div class="col-md-5">
+                    {{ form_row(form.pieza) }}
+                </div>
+                <div class="col-md-4">
+                    <button id="btnSubmit" style="margin-top:30px;" name="btnSubmit" value="save" disabled class="btn btn-primary"> 
+                        <i class="far fa-check-circle"></i> Desarmar Ultimo Pallet
+                    </button>
+                    <button type="cancel" style="margin-top:30px;" onclick="location.reload();return false;" class="btn btn-secondary"> 
+                        <i class="fas fa-undo-alt"></i> Cancelar
+                    </button>
+                </div>                
+            </div>
+            <hr/>
+            <div class="row">
+                <div style="display:none;">
+                    {{ form_row(form.ultPalletCodigo) }}
+                    {{ form_row(form.ultPalletUbicId) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(form.ultPalletNEmbalaje) }}
+                </div>
+                <div class="col-md-1">
+                    {{ form_row(form.ultPalletClienteId) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(form.ultPalletCodIntercambio) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.ultPalletCantidad) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.ultPalletUbicacion) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+    <div id="modalResultados" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Resultados</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="contenidoModalResultados">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

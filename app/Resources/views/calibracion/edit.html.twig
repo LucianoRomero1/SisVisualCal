@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} -  Editar Calibración
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="row">
+    <div class="col-md-12">
+        {% for type, flashMessages in app.session.flashbag.all() %} 
+        {% for flashMessage in flashMessages %}
+        <div class="alert alert-{{ type }}">
+            {{ flashMessage|raw }}
+        </div>
+         {% endfor %} 
+         {% endfor %} 
+    </div>
+</div>
+    
+    {{ form_start(edit_form) }}
+
+    {{ form_row(edit_form.fecha) }}
+    <div style="display:none;">
+        {{ form_row(edit_form.gage) }}
+    </div>
+    <div class="form-group"><label class="control-label required" for="calibracion_gage_id">Instrumento</label><input type="text" id="calibracion_gage_id" readonly required="required" class="form-control" value="{{calibracion.gage.id}}"></div>
+    <div class="form-group"><label class="control-label required" for="calibracion_gage_descripcion">Instrumento Descripción</label><input type="text" id="calibracion_gage_descripcion" readonly required="required" class="form-control" value="{{calibracion.gage.descripcion}}"></div>
+    {{ form_row(edit_form.gage) }}
+    {{ form_row(edit_form.realizadaPor) }}
+    {{ form_row(edit_form.pasa) }}
+    {{ form_row(edit_form.temperatura) }}
+    {{ form_row(edit_form.humedad) }}
+    {{ form_row(edit_form.almacen) }}
+    {{ form_row(edit_form.calibracionTipo) }}
+    {{ form_row(edit_form.resultado) }}
+
+    <div style="display:none;">
+        {{ form_row(edit_form.gageTipo, { 'required' : false } ) }}
+        {{ form_row(edit_form.ubicacion, { 'required' : false }  ) }}
+    </div>
+
+    <div class="alert alert-info" role="alert">
+    Solo actualiza los valores de la calibración. No actualiza Fechas en el instrumento.
+    </div>
+    
+    <p>
+        <button type="submit" class="btn btn-primary">
+            <i class="far fa-check-circle"></i> Guardar
+        </button>
+    </p>
+    {{ form_end(edit_form) }}
+
+    <hr/>
+
+    
+<div class="form-group">
+    <a class="btn btn-secondary" href="{{ path('calibracion') }}">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+</div>
+
+
+
+
+{% endblock %}
+

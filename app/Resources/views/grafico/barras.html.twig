@@ -1,0 +1,89 @@
+{% block body %}
+    <style>    
+        .bar-legend > span {
+            display: inline-block;
+            margin-right: 25px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        
+        .bar-legend > span:last-child {
+            margin-right: 0;
+        }
+        
+        .bar-legend > span > i {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin-right: 7px;
+            margin-top: -3px;
+            vertical-align: middle;
+            border-radius: 1px;
+        }
+        
+        #morris-bar-chart {
+            max-height: 280px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+    
+<br />
+<link href="{{ asset('grafico/morrisjs/morris.css') }}" rel="stylesheet">
+
+<hr/>
+<b>{{ titulo_grafico }}</b>
+
+<div id="morris-bar-chart" style="height:200px;">
+</div>
+
+<div id="legend-bar" class="bar-legend"></div>
+<hr/>
+<script src="{{ asset('grafico/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('grafico/raphael/raphael.min.js') }}"></script>
+<script src="{{ asset('grafico/morrisjs/morris.min.js') }}"></script>
+
+<script>
+    
+    
+    $(document).ready(function () {
+  
+        var browsersBarChart = Morris.Bar({
+            element: 'morris-bar-chart',
+            data: [
+                {% for resultado in resultados %}
+                    { Atraso: '{{resultado['XSERIE']}}', Valor: {{resultado['VALOR']}} },
+                {% endfor %}
+            ],                  
+            xkey: 'Atraso',
+            ykeys: ['Valor'],
+            labels: ['Atraso'],
+            pointSize: 5,
+            hideHover: 'auto',
+            xLabels: 'month',
+            resize: true,
+            barColors: function (row, series, type) {
+
+                if(row.label == "+ 30 días") return "#DC143C";
+                else if(row.label == "15 y 30 días") return "#1E90FF";
+                else if(row.label == "8 y 14 días") return "#FFD700";
+                else if(row.label == "-7 días") return "#777";
+                }
+        });
+        
+        browsersBarChart.options.data.forEach(function(label, i){
+            
+            var legendItem = $('<span></span>').text(label['Atraso'] + ' ( '+ label['Valor'] +' )').prepend('<i>&nbsp;</i>');
+            
+            if(label['Atraso'] == "+ 30 días") legendItem.find('i').css('backgroundColor', "#DC143C");
+            else if(label['Atraso'] == "15 y 30 días") legendItem.find('i').css('backgroundColor', "#1E90FF");
+            else if(label['Atraso'] == "8 y 14 días") legendItem.find('i').css('backgroundColor', "#FFD700"); 
+            else if(label['Atraso'] == "-7 días") legendItem.find('i').css('backgroundColor', "#777");
+            
+            console.log(browsersBarChart.options.barColors[i]);
+            $('#legend-bar').append(legendItem)
+        });
+    });
+    
+</script>
+{% endblock %}

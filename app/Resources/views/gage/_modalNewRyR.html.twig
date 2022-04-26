@@ -1,0 +1,37 @@
+<script>
+        function newRyR(gageId, newRyRPath) {
+        
+        $.ajax({
+            type: "GET",
+            url: newRyRPath,
+            data: {},
+            success: function (datos) {
+                $("#ryrname-header-modal-view").html("RyR");
+                $("#ryrtext-header-body-view").html(datos);
+                $('#newRyRModal').modal('show');
+                //$('#MarcadoType_cantidad').focus();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseJSON.message);
+            }
+        });
+    };
+</script>
+<!-- #modal envio -->
+<div class="modal fade" id="newRyRModal" tabindex="-1" role="dialog" aria-labelledby="name-header-modal-view" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="ryrname-header-modal-view">RyR</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        
+        <div class="modal-body" id="ryrtext-header-body-view" >
+            ...    
+                
+        </div>
+        
+    </div>
+  </div>
+</div>
+<!-- /#modal -->

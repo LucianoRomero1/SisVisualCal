@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - almacen
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-6">
+        <p><strong>Id</strong></p>
+        <p>
+            {{ almacen.id }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Descripcion</strong></p>
+        <p>
+            {{ almacen.descripcion }}
+        </p>
+
+    </div>
+<hr/>
+
+
+<div class="form-group">
+    <a class="btn btn-secondary" href="{{ path('almacen') }}">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+</div>
+
+
+{% endblock %}
+

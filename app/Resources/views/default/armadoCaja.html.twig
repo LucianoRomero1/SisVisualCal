@@ -1,0 +1,247 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - Armado de Cajas
+{% endblock %}
+
+{% block javascript %}
+    {{parent()}}
+    <script src="{{ asset('js/jquery-ui.min.js')}}"></script>
+    <script src="{{ asset('js/armadoCaja_js.js') }}"></script>
+    <script src="{{ asset('js/BrowserPrint-3.0.216.min.js') }}"></script>
+    <script src="{{ asset('js/imprimirZPL_js.js') }}"></script>
+{% endblock %}
+
+
+{% block body %}
+    <div id="loading" class="loading"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% for type, flashMessages in app.session.flashbag.all() %} 
+            {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+                {{ flashMessage|raw }}
+            </div>
+            {% endfor %} 
+            {% endfor %} 
+        </div>
+    </div>
+    
+    <div id="rutaRecPapelEntradaJson" ruta="{{ path('recPapelEntradaJson', { 'nroEstibador': -1 })  }}"></div>
+    <div id="rutaRecPiezaJson" ruta="{{ path('recPiezaJson', { 'id': -1 })  }}"></div>
+    <div id="rutaBuscarEnDeposito" ruta="{{ path('buscarEnDepositoGet')  }}"></div>
+    <div id="rutaArmadoCajaPost" ruta="{{ path('armadoCajaPost', { 'nroEstibador': -1 })  }}"></div>
+    <div id="rutaArmadoCajaFromDepositoPost" ruta="{{ path('armadoCajaFromDepositoPost')  }}"></div>
+    <div id="rutaImprimirCaja" ruta="{{ path('imprimirCaja')  }}"></div>
+    <div id="rutaCajaSetImpreso" ruta="{{ path('cajaSetImpreso')  }}"></div>
+    <div id="msgErrores"></div>
+
+    {{ form_start(form, { 'action': '',  'attr' : { 'class': 'ajaxFormBusqueda', 'autocomplete' : 'off' } }) }}
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="far fa-file"></i>&nbsp;&nbsp;<b>Ingreso</b>
+        </div>
+        <div class="card-body" style="padding-bottom:0px;padding-top:16px;">
+            <div class="row">
+                <div class="col-md-3">
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARPALLET_ADMIN')  %}
+                    {{ form_row(form.tipoEntrada) }}
+                    {% else %}
+                    <div style="display:none;">
+                        {{ form_row(form.tipoEntrada) }}    
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label required" >Tipo entrada</label>
+                        <select class="form-control"><option value="0" selected="selected">Papel de Ingreso</option></select>
+                    </div>
+                    {% endif %}
+                </div>
+                <div id="divPorPapelEntrada" class="col-md-6">
+                    <div style="max-width:200px;">
+                    {{ form_row(form.estibador) }}
+                    </div>
+                </div>
+                <div id="divPorDepositoActual" class="col-md-6 row" style="display:none">
+                <div class="col-md-6">
+                    {{ form_row(form.pieza) }}
+                </div>
+                <div class="col-md-6">
+                    <button style="margin-top:30px;" id="btnBuscarEnDeposito" name="btnBuscarEnDeposito" class="btn btn-info"> 
+                        <i class="fas fa-search"></i> Buscar en Depósito
+                    </button>
+                </div>
+                </div>
+                <div class="col-md-3">
+                    <button style="margin-top:30px;" id="btnSubmit" name="btnSubmit" value="save" disabled class="btn btn-primary"> 
+                        <i class="far fa-check-circle"></i> Armar Cajas
+                    </button>
+                    <button style="margin-top:30px;" type="cancel" onclick="location.reload();return false;" class="btn btn-secondary"> 
+                        <i class="fas fa-undo-alt"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div style="display:none;">
+                    {{ form_row(form.codArticulo) }}
+                </div>
+                
+                <div class="col-md-2">
+                    {{ form_row(form.codigo3b) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.codIntercambio) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.nPartida) }}
+                </div>
+                <div class="col-md-1">
+                    {{ form_row(form.clienteId) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(form.clienteRazonSocial) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.marca) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.pzsPorCaja) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.fechaCpte) }}
+                </div>
+
+                <div style="display:none;">
+                    {{ form_row(form.codigoContenedorDescontar) }}
+                </div>
+
+                <div style="display:none;">
+                    {{ form_row(form.codigoEmbalajeReg) }}
+                </div>
+
+                <div class="col-md-2">
+                    {{ form_row(form.idContenedorDescontar) }}
+                </div>
+
+                <div class="col-md-2">
+                    {{ form_row(form.cantPzsIngresar) }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-danger mb-3">
+        <div class="card-header text-white bg-danger ">
+            <i class="fas fa-box-open"></i>&nbsp;&nbsp;<b>Caja Abierta</b>
+        </div>
+        <div class="card-body" style="padding-bottom:0px;padding-top:16px;">
+            <div class="row">
+                <div style="display:none;">
+                    {{ form_row(form.eAbiertoCodigo) }}
+                    {{ form_row(form.eAbiertoUbicId) }}
+                    {{ form_row(form.moduloCodigo) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(form.eAbiertoNEmbalaje) }}
+                </div>
+                <div class="col-md-1">
+                    {{ form_row(form.eAbiertoClienteId) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(form.eAbiertoCodIntercambio) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.eAbiertoCantidad) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.eAbiertoUbicacion) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;<b>Ubicación Actual</b>
+        </div>
+        <div class="card-body" style="padding-bottom:0px;padding-top:16px;">
+            <div class="row">
+                <div style="display:none;">
+                    {{ form_row(form.codigoContenedor) }}
+                    {{ form_row(form.deposito) }}
+                    {{ form_row(form.moduloCodigo) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(form.idContenedor) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(form.depositoDescripcion) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(form.moduloDescripcion) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+    <div id="modalResultados" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Resultados</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="contenidoModalResultados">
+                    <h4>AV-1104 - PRUEBAS - <span class="badge badge-secondary">1114</span></h4>
+                    <div class="card">
+                        <div class="card-header">
+                            <b>Cajas Generadas</b>&nbsp;<span class="badge badge-secondary">12</span>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-box-open"></i>&nbsp;&nbsp;EMBALAJE: <b>S000000509</b>  -  ESTADO: DISPONIBLE , CANTIDAD : <span class="badge badge badge-danger">36</span></li>
+                            <li class="list-group-item"><i class="fas fa-box"></i>&nbsp;&nbsp;EMBALAJE: S000000509  -  ESTADO: DISPONIBLE , CANTIDAD : <span class="badge badge-secondary">119</span></li>
+                            <li class="list-group-item"><i class="fas fa-box"></i>&nbsp;&nbsp;EMBALAJE: S000000509  -  ESTADO: DISPONIBLE , CANTIDAD : 119</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalNota" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nota</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="contenidoModalNota">
+                    The modal plugin toggles your hidden content on demand, via data attributes or JavaScript. It also adds .modal-open to the  to override default scrolling behavior and generates a 
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'default/_modalBuscarEnDeposito.html.twig'%}
+
+{% endblock %}

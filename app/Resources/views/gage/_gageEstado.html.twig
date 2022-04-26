@@ -1,0 +1,24 @@
+{% if (estado.id == 1) %}
+    {#Activo#}
+    <span class="badge badge-success">{{ estado.descripcion }}</span>
+{% elseif ( estado.id == 7 ) %}
+    {#Inactivo#}
+    <span class="badge badge-danger">{{ estado.descripcion }}</span>
+{% elseif ( estado.id == 1 ) %}
+    {#En reparacion#}
+    <span class="badge badge-info">{{ estado.descripcion }}</span>
+{% elseif ( estado.id == 1 ) %}
+    {#En Calibracion#}
+    <span class="badge badge-info">{{ estado.descripcion }}</span>
+{% elseif ( estado.id == 1 ) %}
+    {#En Perdido#}
+    <span class="badge badge-danger">{{ estado.descripcion }}</span>
+{% elseif ( estado.id == 1 ) %}
+    {#Nuevo#}
+    <span class="badge badge-success">{{ estado.descripcion }}</span>    
+{% elseif ( estado.id == 1 ) %}
+    {#De Baja#}
+    <span class="badge badge-danger">{{ estado.descripcion }}</span>  
+{% else %}
+    <span class="badge badge-secondary">{{ estado.descripcion }}</span>      
+{% endif %}

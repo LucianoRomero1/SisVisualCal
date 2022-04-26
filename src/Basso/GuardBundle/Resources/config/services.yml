@@ -1,0 +1,4 @@
+services:
+#    basso_guard.example:
+#        class: Basso\GuardBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

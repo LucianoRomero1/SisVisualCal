@@ -1,0 +1,30 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 10.1.1.109
+    database_port: 1521
+    database_name: neosys
+    database_user: shidalgo
+    database_password: 12345
+    mailer_transport: smtp
+    mailer_host: 10.1.1.12
+    mailer_port: 25
+    mailer_encryption: null
+    mailer_auth_mode: null
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+#parameters:
+#    database_host: 10.1.1.244
+#    database_port: 1521
+#    database_name: neosys
+#    database_user: symfonyuser
+#    database_password: n0v3ll
+#    mailer_transport: smtp
+#    mailer_host: 127.0.0.1
+#    mailer_port: 25
+#    mailer_encryption: null
+#    mailer_user: null
+#    mailer_password: null
+#    secret: ThisTokenIsNotSoSecretChangeIt
+#    mailer_auth_mode: null
+

@@ -1,0 +1,68 @@
+{% block body %}
+    
+    <style>    
+        .donut-legend > span {
+            display: inline-block;
+            margin-right: 25px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        
+        .donut-legend > span:last-child {
+            margin-right: 0;
+        }
+        
+        .donut-legend > span > i {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin-right: 7px;
+            margin-top: -3px;
+            vertical-align: middle;
+            border-radius: 1px;
+        }
+        
+        #morris-donut-chart {
+            max-height: 280px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style> 
+
+<br />
+<link href="{{ asset('grafico/morrisjs/morris.css') }}" rel="stylesheet">
+<hr/>
+<b>{{ titulo_grafico }}</b>
+
+<div id="morris-donut-chart">
+</div>
+
+<div id="legend" class="donut-legend"></div>
+<hr/>
+<script src="{{ asset('grafico/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('grafico/raphael/raphael.min.js') }}"></script>
+<script src="{{ asset('grafico/morrisjs/morris.min.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+  
+        var browsersChart = Morris.Donut({
+              element: 'morris-donut-chart',
+              hideHover: 'auto',
+              resize: true,
+              data: [
+                        {% for resultado in resultados %}
+                            { label: '{{resultado['XSERIE']}}', value: {{resultado['VALOR']}} },
+                        {% endfor %}
+                    ],
+              colors: ['#DC143C','#1E90FF','#FFD700','#777']   
+        });
+        
+        browsersChart.options.data.forEach(function(label, i){
+          var legendItem = $('<span></span>').text(label['label'] + ' ( '+ label['value'] +' )').prepend('<i>&nbsp;</i>');
+          legendItem.find('i').css('backgroundColor', browsersChart.options.colors[i]);
+          $('#legend').append(legendItem)
+        });
+    });
+</script>
+{% endblock %}

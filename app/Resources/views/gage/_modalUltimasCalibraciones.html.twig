@@ -1,0 +1,38 @@
+<script>
+        function ultimasCalibraciones(gageId, ultimasCalibracionesPath) {
+        
+            
+        $.ajax({
+            type: "GET",
+            url: ultimasCalibracionesPath,
+            data: {},
+            success: function (datos) {
+                $("#mpp-name-header-modal-view").html("Instrumento #" + gageId);
+                $("#mpp-text-header-body-view").html(datos);
+                $('#ultimasCalibracionesModal').modal('show');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseJSON.message);
+            }
+        });
+    };
+</script>
+<!-- #modal movPorPallet -->
+<div class="modal fade modal-generico" id="ultimasCalibracionesModal" tabindex="-1" role="dialog" aria-labelledby="name-header-modal-view" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="mpp-name-header-modal-view">Movimientos</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            
+        </div>
+        
+        <div class="modal-body" id="mpp-text-header-body-view" >
+            ...    
+                
+        </div>
+        
+    </div>
+  </div>
+</div>
+<!-- /#modal -->

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - fabricante
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-6">
+        <p><strong>Id</strong></p>
+        <p>
+            {{ fabricante.id }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Descripcion</strong></p>
+        <p>
+            {{ fabricante.descripcion }}
+        </p>
+
+    </div>
+<hr/>
+
+
+<div class="form-group">
+    <a class="btn btn-secondary" href="{{ path('fabricante') }}">
+        <i class="fas fa-arrow-left"></i>
+        Volver
+    </a>
+</div>
+
+
+{% endblock %}
+
